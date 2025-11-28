@@ -38,18 +38,36 @@ function LoginForm() {
         return;
       }
 
-      // Get user role to redirect appropriately
-      const response = await fetch("/api/auth/session");
-      const session = await response.json();
+      if (result?.ok) {
+        // Wait a bit for the session to be set, then fetch it
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Get user role to redirect appropriately
+        try {
+          const response = await fetch("/api/auth/session", {
+            cache: "no-store",
+          });
+          const session = await response.json();
 
-      if (session?.user?.role === "ADMIN") {
-        router.push("/admin");
-      } else if (session?.user?.role === "OPERATOR") {
-        router.push("/operator");
+          if (session?.user?.role === "ADMIN") {
+            // Use window.location for full page reload to ensure session is loaded
+            window.location.href = "/admin";
+          } else if (session?.user?.role === "OPERATOR") {
+            window.location.href = "/operator";
+          } else {
+            window.location.href = "/";
+          }
+        } catch (sessionError) {
+          console.error("Session fetch error:", sessionError);
+          // Fallback: redirect to home and let middleware handle it
+          window.location.href = "/";
+        }
       } else {
-        router.push("/");
+        setError("Login failed. Please try again.");
+        setLoading(false);
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("An error occurred. Please try again.");
       setLoading(false);
     }

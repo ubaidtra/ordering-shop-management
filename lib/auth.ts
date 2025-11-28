@@ -16,29 +16,44 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
+        try {
+          // Normalize email to lowercase for case-insensitive comparison
+          const email = credentials.email.toLowerCase().trim();
+          
+          const user = await prisma.user.findUnique({
+            where: { email: email },
+          });
 
-        if (!user || !user.isActive) {
+          if (!user) {
+            console.error("User not found:", email);
+            return null;
+          }
+
+          if (!user.isActive) {
+            console.error("User is not active:", email);
+            return null;
+          }
+
+          const isValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isValid) {
+            console.error("Invalid password for user:", email);
+            return null;
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Auth error:", error);
           return null;
         }
-
-        const isValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        };
       },
     }),
   ],
