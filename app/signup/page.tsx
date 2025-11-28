@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/Button";
@@ -14,18 +14,46 @@ export default function SignupPage() {
     confirmPassword: "",
     contact: "",
     address: "",
+    adminCode: "", // Secret code for admin signup
   });
+  const [isAdminSignup, setIsAdminSignup] = useState(false);
+  const [adminSignupAvailable, setAdminSignupAvailable] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  // Check if admin signup is available
+  useEffect(() => {
+    const checkAdminExists = async () => {
+      try {
+        const response = await fetch("/api/auth/check-admin");
+        const data = await response.json();
+        setAdminSignupAvailable(!data.adminExists);
+      } catch (err) {
+        // If check fails, assume admin signup is available
+        console.error("Error checking admin:", err);
+      }
+    };
+    checkAdminExists();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     // Validation
-    if (!formData.name || !formData.email || !formData.password || !formData.contact || !formData.address) {
-      setError("All fields are required");
+    if (!formData.name || !formData.email || !formData.password) {
+      setError("Name, email, and password are required");
+      return;
+    }
+
+    if (!isAdminSignup && (!formData.contact || !formData.address)) {
+      setError("Contact and address are required for customer signup");
+      return;
+    }
+
+    if (isAdminSignup && !formData.adminCode) {
+      setError("Admin signup code is required");
       return;
     }
 
@@ -49,8 +77,9 @@ export default function SignupPage() {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-          contact: formData.contact,
-          address: formData.address,
+          contact: formData.contact || "",
+          address: formData.address || "",
+          adminCode: isAdminSignup ? formData.adminCode : undefined,
         }),
       });
 
@@ -62,8 +91,14 @@ export default function SignupPage() {
         return;
       }
 
-      // Success - redirect to login
-      router.push("/login?registered=true");
+      // Success - redirect based on role
+      if (data.user?.role === "ADMIN") {
+        // Admin signup - redirect to admin dashboard
+        router.push("/admin");
+      } else {
+        // Customer signup - redirect to login
+        router.push("/login?registered=true");
+      }
     } catch (err) {
       setError("An error occurred. Please try again.");
       setLoading(false);
@@ -80,6 +115,22 @@ export default function SignupPage() {
           <p className="mt-2 text-center text-sm text-gray-600">
             Sign up to start shopping for furniture
           </p>
+          {adminSignupAvailable && (
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => setIsAdminSignup(!isAdminSignup)}
+                className="text-xs text-indigo-600 hover:text-indigo-500 underline"
+              >
+                {isAdminSignup ? "Sign up as Customer" : "Sign up as Admin (One-time only)"}
+              </button>
+            </div>
+          )}
+          {!adminSignupAvailable && isAdminSignup && (
+            <div className="mt-4 bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded text-sm">
+              Admin account already exists. Admin signup is disabled.
+            </div>
+          )}
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
@@ -122,27 +173,41 @@ export default function SignupPage() {
                 setFormData({ ...formData, confirmPassword: e.target.value })
               }
             />
-            <Input
-              label="Contact Number"
-              type="tel"
-              required
-              placeholder="Enter your phone number"
-              value={formData.contact}
-              onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-            />
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Address
-              </label>
-              <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            {!isAdminSignup && (
+              <>
+                <Input
+                  label="Contact Number"
+                  type="tel"
+                  required
+                  placeholder="Enter your phone number"
+                  value={formData.contact}
+                  onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Address
+                  </label>
+                  <textarea
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                    placeholder="Enter your full address"
+                    rows={3}
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  />
+                </div>
+              </>
+            )}
+            {isAdminSignup && (
+              <Input
+                label="Admin Signup Code"
+                type="password"
                 required
-                placeholder="Enter your full address"
-                rows={3}
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                placeholder="Enter admin signup code"
+                value={formData.adminCode}
+                onChange={(e) => setFormData({ ...formData, adminCode: e.target.value })}
               />
-            </div>
+            )}
           </div>
 
           <div>
