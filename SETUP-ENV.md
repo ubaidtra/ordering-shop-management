@@ -5,7 +5,7 @@
 Create a `.env` file in the root directory with the following content:
 
 ```env
-DATABASE_URL="mongodb+srv://traubaid:ubaid@281986@cluster0.cevggcp.mongodb.net/furniture_ordering?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 NEXTAUTH_URL="http://localhost:5000"
 NEXTAUTH_SECRET="furniture-ordering-secret-key-change-in-production"
 ```
@@ -17,8 +17,8 @@ NEXTAUTH_SECRET="furniture-ordering-secret-key-change-in-production"
    - Example: If password is `ubaid@281986`, use `ubaid%40281986` in the connection string
 
 2. **Verify Your MongoDB Credentials**:
-   - Username: `traubaid`
-   - Password: `ubaid@281986` (or whatever your actual password is)
+   - Username: Your MongoDB Atlas username
+   - Password: Your MongoDB Atlas password (URL encode special characters if needed)
    - Make sure these are correct in your MongoDB Atlas account
 
 3. **Connection String Format**:

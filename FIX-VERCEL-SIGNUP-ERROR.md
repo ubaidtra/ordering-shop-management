@@ -21,7 +21,7 @@ This guide will help you troubleshoot and fix the "Failed to create account" err
 1. Go to **Vercel Dashboard** → Your Project → **Settings** → **Environment Variables**
 2. Check that `DATABASE_URL` exists and is correct:
    ```
-   mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+   mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
    ```
 3. Make sure it's set for **Production**, **Preview**, and **Development**
 
@@ -42,7 +42,7 @@ The database schema must be pushed to your production database.
 
 1. **Set production DATABASE_URL**:
    ```powershell
-   $env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+   $env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
    ```
 
 2. **Push schema to production**:
@@ -110,7 +110,7 @@ The improved error handling will now show more specific errors.
 
 1. **Set production DATABASE_URL**:
    ```powershell
-   $env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+   $env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
    ```
 
 2. **Test connection**:
@@ -220,7 +220,7 @@ Before testing signup, verify:
 
 **Set production database and test:**
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 npx prisma db push
 npx prisma generate
 node scripts/create-admin.js
@@ -228,7 +228,7 @@ node scripts/create-admin.js
 
 **Check if user exists:**
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node -e "const { PrismaClient } = require('@prisma/client'); const prisma = new PrismaClient(); prisma.user.findMany().then(users => { console.log('Users:', users.map(u => u.email)); prisma.$disconnect(); });"
 ```
 

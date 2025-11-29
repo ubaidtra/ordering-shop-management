@@ -33,8 +33,8 @@ git push -u origin main
    - **Install Command:** `npm install && npx prisma generate`
    - **Build Command:** `npm run build`
 5. **Add Environment Variables** (click "Environment Variables" section):
-   - `DATABASE_URL` = `mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority`
-   - `NEXTAUTH_SECRET` = `QtMTx33rICj97z/czI2JYtlWPpbop2Et9D62DUEFyzQ=`
+   - `DATABASE_URL` = `mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
+   - `NEXTAUTH_SECRET` = Generate a secure secret (run `npm run generate-secret`)
    - `NEXTAUTH_URL` = (leave empty for now)
 6. Click **Deploy**
 
@@ -53,6 +53,6 @@ Since Vercel Dashboard requires GitHub for import, use CLI with this workaround:
 4. Go to **Deployments** → **Redeploy** the latest deployment
 
 ## Admin Login Credentials
-- Email: `traubaid@gmail.com`
-- Password: `trawally@281986`
+- Email: Set via `ADMIN_EMAIL` environment variable or in scripts
+- Password: Set via `ADMIN_PASSWORD` environment variable or in scripts
 

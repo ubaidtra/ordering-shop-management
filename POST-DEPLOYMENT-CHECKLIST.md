@@ -52,7 +52,7 @@ Your application is available at:
    - ✅ Go to `/login`
    - ✅ Login with admin credentials:
      - Email: `traubaid@gmail.com`
-     - Password: `trawally@281986`
+     - Password: `YOUR_ADMIN_PASSWORD`
    - ✅ Verify admin dashboard loads
 
 5. **Products**
@@ -78,7 +78,7 @@ Your application is available at:
 
 **Admin Login:**
 - Email: `traubaid@gmail.com`
-- Password: `trawally@281986`
+- Password: `YOUR_ADMIN_PASSWORD`
 
 **⚠️ Security Note:** Change the admin password after first login!
 
@@ -135,8 +135,8 @@ If all tests pass, your application is successfully deployed and ready to use!
 
 Make sure these are set in Vercel:
 
-1. `DATABASE_URL` = `mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority`
-2. `NEXTAUTH_SECRET` = `QtMTx33rICj97z/czI2JYtlWPpbop2Et9D62DUEFyzQ=`
+1. `DATABASE_URL` = `mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
+2. `NEXTAUTH_SECRET` = Generate a secure secret (run `npm run generate-secret`)
 3. `NEXTAUTH_URL` = `https://your-actual-deployment-url.vercel.app`
 
 ---

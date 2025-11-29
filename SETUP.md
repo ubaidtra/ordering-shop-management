@@ -9,7 +9,7 @@ The application has been updated to use MongoDB instead of SQLite.
 Create or update your `.env` file with the MongoDB connection string:
 
 ```env
-DATABASE_URL="mongodb+srv://traubaid:ubaid@281986@cluster0.cevggcp.mongodb.net/furniture_ordering?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 NEXTAUTH_URL="http://localhost:5000"
 NEXTAUTH_SECRET="your-secret-key-change-in-production"
 ```
@@ -17,7 +17,7 @@ NEXTAUTH_SECRET="your-secret-key-change-in-production"
 **Important**: Make sure to add the database name to the connection string if you want to use a specific database. The connection string should look like:
 
 ```env
-DATABASE_URL="mongodb+srv://traubaid:ubaid@281986@cluster0.cevggcp.mongodb.net/furniture_ordering?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 ```
 
 ### Step 2: Push Schema to MongoDB

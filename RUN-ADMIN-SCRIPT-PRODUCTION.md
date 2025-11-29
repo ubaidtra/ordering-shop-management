@@ -15,7 +15,7 @@ This is the simplest method. Run the script on your local machine but connect it
 
 Or use the same connection string you used during deployment:
 ```
-mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
 ```
 
 ### Step 2: Run the Script with Production Database
@@ -24,19 +24,19 @@ mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?re
 
 **Windows PowerShell:**
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node scripts/ensure-admin.js
 ```
 
 **Windows Command Prompt:**
 ```cmd
-set DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+set DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
 node scripts/ensure-admin.js
 ```
 
 **Linux/Mac:**
 ```bash
-export DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+export DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node scripts/ensure-admin.js
 ```
 
@@ -44,7 +44,7 @@ node scripts/ensure-admin.js
 
 1. Create a file named `.env.production` in your project root:
    ```env
-   DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+   DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
    ```
 
 2. Modify the script to use `.env.production` or run:
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const email = "traubaid@gmail.com";
-    const password = "trawally@281986";
+    const password = "YOUR_ADMIN_PASSWORD";
     
     const normalizedEmail = email.toLowerCase().trim();
     const adminPassword = await bcrypt.hash(password, 10);
@@ -163,7 +163,7 @@ curl -X POST https://your-app.vercel.app/api/admin/create-admin \
 
 **Note:** You'll need to generate the bcrypt hash first. Run this locally:
 ```bash
-node -e "const bcrypt = require('bcryptjs'); bcrypt.hash('trawally@281986', 10).then(h => console.log(h));"
+node -e "const bcrypt = require('bcryptjs'); bcrypt.hash('YOUR_ADMIN_PASSWORD', 10).then(h => console.log(h));"
 ```
 
 ---
@@ -185,7 +185,7 @@ node scripts/ensure-admin.js
 
 ```powershell
 # Windows PowerShell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node scripts/ensure-admin.js
 ```
 
@@ -203,7 +203,7 @@ After running the script, verify it worked:
 
 1. Try logging in to your production app:
    - Email: `traubaid@gmail.com`
-   - Password: `trawally@281986`
+   - Password: `YOUR_ADMIN_PASSWORD`
 
 2. Or check MongoDB Atlas directly to see if the user exists
 

@@ -15,7 +15,7 @@ You have two options:
 
 1. Make sure your `.env` file points to the **production database**:
    ```env
-   DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+   DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
    ```
 
 2. Run the ensure-admin script:
@@ -47,13 +47,13 @@ This will check if the admin user exists and if the password is correct.
 1. Go to your deployed app: `https://your-app.vercel.app/login`
 2. Enter:
    - Email: `traubaid@gmail.com`
-   - Password: `trawally@281986`
+   - Password: `YOUR_ADMIN_PASSWORD`
 3. Click "Sign in"
 
 ## Admin Credentials
 
 - **Email:** `traubaid@gmail.com`
-- **Password:** `trawally@281986`
+- **Password:** `YOUR_ADMIN_PASSWORD`
 - **Role:** `ADMIN`
 
 ## Troubleshooting
@@ -83,7 +83,7 @@ Run this to ensure admin user exists in production:
 
 ```bash
 # Set production database URL (if different from .env)
-export DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+export DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 
 # Run ensure-admin script
 node scripts/ensure-admin.js

@@ -30,9 +30,9 @@ Follow the prompts:
 After deployment, go to Vercel Dashboard → Your Project → Settings → Environment Variables and add:
 
 ```
-DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
 NEXTAUTH_URL=https://your-project.vercel.app
-NEXTAUTH_SECRET=your-secret-key-here
+NEXTAUTH_SECRET=your-generated-secret-key-minimum-32-characters
 ```
 
 ### Step 5: Redeploy

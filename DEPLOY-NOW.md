@@ -37,13 +37,15 @@ If you want to connect to GitHub for automatic deployments:
    
    **Variable 1:**
    - Key: `DATABASE_URL`
-   - Value: `mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority`
+   - Value: `mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
+     - Replace with your actual MongoDB connection string from MongoDB Atlas
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Click **Save**
    
    **Variable 2:**
    - Key: `NEXTAUTH_SECRET`
-   - Value: `QtMTx33rICj97z/czI2JYtlWPpbop2Et9D62DUEFyzQ=`
+   - Value: Generate a secure random string (run `npm run generate-secret` or `openssl rand -base64 32`)
+     - **Never use example values in production!**
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Click **Save**
    
@@ -69,8 +71,7 @@ If you want to connect to GitHub for automatic deployments:
 1. Visit your deployment URL
 2. Test the homepage loads
 3. Test admin login:
-   - Email: `traubaid@gmail.com`
-   - Password: `trawally@281986`
+   - Use the admin credentials you configured (via scripts or signup)
 
 ## Alternative: CLI Method (if dashboard doesn't work)
 

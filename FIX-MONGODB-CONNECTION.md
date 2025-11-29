@@ -80,12 +80,12 @@ This error indicates that Prisma cannot connect to your MongoDB Atlas cluster.
 
 Your connection string should look like:
 ```
-mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
 ```
 
 **Important:**
-- Username: `ubaidtraw`
-- Password: `ubaid281986` (make sure it's correct, no special characters need encoding)
+- Username: Your MongoDB username
+- Password: Your MongoDB password (URL encode special characters if needed)
 - Cluster: `cluster0.6qxphwl.mongodb.net`
 - Database: `sample_mflix`
 
@@ -106,7 +106,7 @@ Create a test file `test-connection.js`:
 ```javascript
 const { MongoClient } = require('mongodb');
 
-const uri = 'mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority';
 
 async function testConnection() {
   try {
@@ -139,7 +139,7 @@ node test-connection.js
 Make sure your `.env` file has the correct connection string:
 
 ```env
-DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 ```
 
 **Important:**
@@ -168,7 +168,7 @@ After fixing network access and connection string:
 
 ```powershell
 # Set environment variable
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 
 # Try again
 npx prisma db push
@@ -186,7 +186,7 @@ If `mongodb+srv://` doesn't work, try the direct connection string:
 4. Copy the connection string
 5. It should look like:
    ```
-   mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/?retryWrites=true&w=majority
+   mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
    ```
 6. Add database name: `/sample_mflix` before the `?`
 
@@ -299,7 +299,7 @@ test();
 
 Run it:
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node test-mongodb.js
 ```
 

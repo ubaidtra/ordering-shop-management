@@ -32,14 +32,18 @@ Add these **three** environment variables (click "Add New" for each):
 
 #### Variable 1: DATABASE_URL
 - **Key**: `DATABASE_URL`
-- **Value**: `mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority`
+- **Value**: `mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
+  - Replace `USERNAME`, `PASSWORD`, `xxxxx`, and `DATABASE_NAME` with your actual MongoDB credentials
+  - Get this from your MongoDB Atlas dashboard
 - **Environments**: ✅ Production, ✅ Preview, ✅ Development (select all three)
 - Click **Save**
 
 #### Variable 2: NEXTAUTH_SECRET
 - **Key**: `NEXTAUTH_SECRET`
-- **Value**: `QtMTx33rICj97z/czI2JYtlWPpbop2Et9D62DUEFyzQ=`
-  - (Or generate a new one using: `npm run generate-secret`)
+- **Value**: Generate a secure random string (minimum 32 characters)
+  - Run locally: `npm run generate-secret`
+  - Or use: `openssl rand -base64 32`
+  - **Never use the example value in production!**
 - **Environments**: ✅ Production, ✅ Preview, ✅ Development (select all three)
 - Click **Save**
 
@@ -70,8 +74,9 @@ The admin user needs to exist in your **production database** (the one connected
 
 2. **Set production database URL**:
    ```powershell
-   $env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+   $env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
    ```
+   Replace with your actual MongoDB connection string.
 
 3. **Run the ensure-admin script**:
    ```powershell
@@ -93,8 +98,8 @@ The admin user needs to exist in your **production database** (the one connected
 2. Click **"Sign up as Admin (One-time only)"**
 3. Fill in:
    - Name: Your name
-   - Email: `traubaid@gmail.com` (or your preferred admin email)
-   - Password: `trawally@281986` (or your preferred password)
+   - Email: Your admin email address
+   - Password: Your secure admin password
    - Admin Signup Code: `ADMIN_SETUP_2024`
 4. Click **"Sign Up"**
 5. You'll be redirected to the admin dashboard
@@ -120,7 +125,7 @@ The admin user needs to exist in your **production database** (the one connected
 
    **To generate password hash**, run locally:
    ```powershell
-   node -e "const bcrypt = require('bcryptjs'); bcrypt.hash('trawally@281986', 10).then(h => console.log(h));"
+   node -e "const bcrypt = require('bcryptjs'); bcrypt.hash('YOUR_PASSWORD', 10).then(h => console.log(h));"
    ```
 
 ---
@@ -174,8 +179,8 @@ git push origin main
 
 1. Go to your Vercel URL: `https://your-app.vercel.app/login`
 2. Enter credentials:
-   - **Email**: `traubaid@gmail.com`
-   - **Password**: `trawally@281986`
+   - **Email**: Your admin email
+   - **Password**: Your admin password
 3. Click **"Sign in"**
 4. You should be redirected to `/admin` dashboard
 
@@ -202,13 +207,13 @@ git push origin main
 **Solutions:**
 1. **Verify admin user exists**:
    ```powershell
-   $env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+   $env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
    node scripts/verify-admin.js
    ```
 
 2. **Recreate admin user**:
    ```powershell
-   $env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+   $env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
    node scripts/ensure-admin.js
    ```
 
@@ -290,13 +295,13 @@ git push origin main
 ## Quick Reference
 
 ### Admin Credentials
-- **Email**: `traubaid@gmail.com`
-- **Password**: `trawally@281986`
+- **Email**: Set your admin email (configure in scripts or via signup)
+- **Password**: Set your secure admin password (configure in scripts or via signup)
 
 ### Environment Variables Needed
 ```
-DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
-NEXTAUTH_SECRET=QtMTx33rICj97z/czI2JYtlWPpbop2Et9D62DUEFyzQ=
+DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
+NEXTAUTH_SECRET=your-generated-secret-key-minimum-32-characters
 NEXTAUTH_URL=https://your-actual-vercel-url.vercel.app
 ```
 
@@ -304,13 +309,13 @@ NEXTAUTH_URL=https://your-actual-vercel-url.vercel.app
 
 **Create admin in production:**
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node scripts/ensure-admin.js
 ```
 
 **Verify admin exists:**
 ```powershell
-$env:DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+$env:DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 node scripts/verify-admin.js
 ```
 

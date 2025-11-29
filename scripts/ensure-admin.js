@@ -11,8 +11,13 @@ const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = 'traubaid@gmail.com';
-  const password = 'trawally@281986';
+  // Get admin credentials from environment variables or use defaults for development
+  const email = process.env.ADMIN_EMAIL || 'admin@example.com';
+  const password = process.env.ADMIN_PASSWORD || 'changeme123';
+  
+  if (password === 'changeme123') {
+    console.warn('⚠️  WARNING: Using default password. Set ADMIN_PASSWORD environment variable for production!');
+  }
   
   console.log('🔍 Checking admin user...');
   

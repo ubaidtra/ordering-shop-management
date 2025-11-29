@@ -97,7 +97,8 @@ Vercel will now:
 
    **Variable 1:**
    - Key: `DATABASE_URL`
-   - Value: `mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority`
+   - Value: `mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
+     - Replace with your actual MongoDB connection string from MongoDB Atlas
    - Environment: Select **Production**, **Preview**, and **Development** (all three)
    - Click **Save**
 
@@ -254,7 +255,7 @@ docker build -t furniture-ordering-system .
 Create a file named `.env.production`:
 
 ```env
-DATABASE_URL=mongodb+srv://ubaidtraw:ubaid281986@cluster0.6qxphwl.mongodb.net/sample_mflix?retryWrites=true&w=majority
+DATABASE_URL=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority
 NEXTAUTH_URL=https://your-domain.com
 NEXTAUTH_SECRET=your-secret-key-here
 PORT=5000

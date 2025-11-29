@@ -19,11 +19,11 @@ You need to get the **standard MongoDB connection string** from MongoDB Atlas:
 4. Select **"Node.js"** and version **"5.5 or later"**
 5. Copy the connection string - it should look like:
    ```
-   mongodb+srv://ubaidtraw:ubaid281986@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
    ```
 6. Add your database name:
    ```
-   mongodb+srv://ubaidtraw:ubaid281986@cluster0.xxxxx.mongodb.net/sample_mflix?retryWrites=true&w=majority
+   mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/sample_mflix?retryWrites=true&w=majority
    ```
 
 ### Update .env File
@@ -31,7 +31,7 @@ You need to get the **standard MongoDB connection string** from MongoDB Atlas:
 Replace the `DATABASE_URL` in your `.env` file with the standard connection string:
 
 ```env
-DATABASE_URL="mongodb+srv://ubaidtraw:ubaid281986@cluster0.xxxxx.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/sample_mflix?retryWrites=true&w=majority"
 NEXTAUTH_URL="http://localhost:5000"
 NEXTAUTH_SECRET="furniture-ordering-secret-key-change-in-production"
 ```

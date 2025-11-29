@@ -36,7 +36,7 @@ npm install
 2. Set up environment variables:
 Create a `.env` file in the root directory with:
 ```
-DATABASE_URL="mongodb+srv://traubaid:ubaid@281986@cluster0.cevggcp.mongodb.net/?appName=Cluster0"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority"
 NEXTAUTH_URL="http://localhost:5000"
 NEXTAUTH_SECRET="your-secret-key-change-in-production"
 ```
@@ -59,11 +59,13 @@ npx prisma db seed
 
 ### Default Login Credentials
 
-After seeding, you can login with:
+After seeding, you can login with the default test credentials (change these in production):
 
-- **Admin**: traubaid@gmail.com / trawally@281986
+- **Admin**: Check `prisma/seed.ts` for default admin email/password
 - **Operator**: operator@example.com / operator123
 - **Customer**: customer@furniture.com / customerbuy
+
+**⚠️ Security Note**: Change all default passwords before deploying to production!
 
 ### Running the Application
 
