@@ -24,9 +24,16 @@ export default function AdminOperatorsPage() {
   const [operators, setOperators] = useState<Operator[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedOperator, setSelectedOperator] = useState<Operator | null>(null);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
+    password: "",
+  });
+  const [editFormData, setEditFormData] = useState({
+    name: "",
+    email: "",
     password: "",
   });
 
@@ -99,6 +106,74 @@ export default function AdminOperatorsPage() {
     }
   };
 
+  const handleEdit = (operator: Operator) => {
+    setSelectedOperator(operator);
+    setEditFormData({
+      name: operator.name,
+      email: operator.email,
+      password: "",
+    });
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedOperator) return;
+
+    try {
+      const updateData: any = {
+        name: editFormData.name,
+        email: editFormData.email,
+      };
+
+      // Only include password if it was provided
+      if (editFormData.password) {
+        updateData.password = editFormData.password;
+      }
+
+      const response = await fetch(`/api/admin/operators/${selectedOperator.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updateData),
+      });
+
+      if (response.ok) {
+        setIsEditModalOpen(false);
+        setSelectedOperator(null);
+        setEditFormData({ name: "", email: "", password: "" });
+        fetchOperators();
+      } else {
+        const error = await response.json();
+        alert(error.error || "Failed to update operator");
+      }
+    } catch (error) {
+      console.error("Error updating operator:", error);
+      alert("An error occurred");
+    }
+  };
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to delete operator "${name}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/operators/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        fetchOperators();
+      } else {
+        const error = await response.json();
+        alert(error.error || "Failed to delete operator");
+      }
+    } catch (error) {
+      console.error("Error deleting operator:", error);
+      alert("An error occurred");
+    }
+  };
+
   if (loading || status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -151,8 +226,11 @@ export default function AdminOperatorsPage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {operator.name}
               </h3>
-              <p className="text-gray-600 mb-4">{operator.email}</p>
-              <div className="flex items-center justify-between">
+              <p className="text-gray-600 mb-1">{operator.email}</p>
+              <p className="text-xs text-gray-400 mb-4">
+                Created: {new Date(operator.createdAt).toLocaleDateString()}
+              </p>
+              <div className="flex items-center justify-between mb-3">
                 <span
                   className={`px-2 py-1 rounded text-xs font-medium ${
                     operator.isActive
@@ -162,12 +240,31 @@ export default function AdminOperatorsPage() {
                 >
                   {operator.isActive ? "Active" : "Inactive"}
                 </span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleToggleActive(operator.id, operator.isActive)}
+                  className="text-xs"
                 >
                   {operator.isActive ? "Deactivate" : "Activate"}
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => handleEdit(operator)}
+                  className="text-xs"
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleDelete(operator.id, operator.name)}
+                  className="text-xs text-red-600 hover:bg-red-50"
+                >
+                  Delete
                 </Button>
               </div>
             </Card>
@@ -225,6 +322,60 @@ export default function AdminOperatorsPage() {
             </Button>
             <Button type="submit" variant="primary" className="flex-1">
               Create
+            </Button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false);
+          setSelectedOperator(null);
+          setEditFormData({ name: "", email: "", password: "" });
+        }}
+        title="Edit Operator"
+      >
+        <form onSubmit={handleEditSubmit} className="space-y-4">
+          <Input
+            label="Name"
+            type="text"
+            value={editFormData.name}
+            onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+            required
+          />
+          <Input
+            label="Email"
+            type="email"
+            value={editFormData.email}
+            onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
+            required
+          />
+          <Input
+            label="Password (leave blank to keep current)"
+            type="password"
+            value={editFormData.password}
+            onChange={(e) => setEditFormData({ ...editFormData, password: e.target.value })}
+            placeholder="Enter new password or leave blank"
+          />
+          <p className="text-xs text-gray-500">
+            Leave password blank if you don&apos;t want to change it.
+          </p>
+          <div className="flex gap-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setIsEditModalOpen(false);
+                setSelectedOperator(null);
+                setEditFormData({ name: "", email: "", password: "" });
+              }}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" className="flex-1">
+              Save Changes
             </Button>
           </div>
         </form>
