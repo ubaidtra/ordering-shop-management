@@ -101,7 +101,7 @@ vercel          # Deploy
 
 **Variable 1: DATABASE_URL**
 - **Key**: `DATABASE_URL`
-- **Value**: `mongodb+srv://ubaidttech_db_user:tra%40tech.281986@cluster0.lxszwnk.mongodb.net/order_db?retryWrites=true&w=majority&appName=Cluster0`
+- **Value**: `mongodb+srv://traubaid:ubaid281986@cluster0.cevggcp.mongodb.net/ubaitech_portio?retryWrites=true&w=majority&appName=Cluster0`
 - **Environments**: ✅ Production, ✅ Preview, ✅ Development
 - Click **Save**
 
@@ -138,7 +138,7 @@ After adding environment variables:
 **Option A: Push schema from local machine**
 ```bash
 # Set production database URL
-$env:DATABASE_URL="mongodb+srv://ubaidttech_db_user:tra%40tech.281986@cluster0.lxszwnk.mongodb.net/order_db?retryWrites=true&w=majority&appName=Cluster0"
+$env:DATABASE_URL="mongodb+srv://traubaid:ubaid281986@cluster0.cevggcp.mongodb.net/ubaitech_portio?retryWrites=true&w=majority&appName=Cluster0"
 
 # Push schema
 npx prisma db push
@@ -167,7 +167,7 @@ npx prisma generate
 **Option B: Use script**
 ```bash
 # Set production database URL
-$env:DATABASE_URL="mongodb+srv://ubaidttech_db_user:tra%40tech.281986@cluster0.lxszwnk.mongodb.net/order_db?retryWrites=true&w=majority&appName=Cluster0"
+$env:DATABASE_URL="mongodb+srv://traubaid:ubaid281986@cluster0.cevggcp.mongodb.net/ubaitech_portio?retryWrites=true&w=majority&appName=Cluster0"
 
 # Create admin account
 node scripts/create-admin-production.js
@@ -187,7 +187,7 @@ node scripts/create-admin-production.js
 
 ### Local Environment Variables (.env)
 ```env
-DATABASE_URL="mongodb+srv://ubaidttech_db_user:tra%40tech.281986@cluster0.lxszwnk.mongodb.net/order_db?retryWrites=true&w=majority&appName=Cluster0"
+DATABASE_URL="mongodb+srv://traubaid:ubaid281986@cluster0.cevggcp.mongodb.net/ubaitech_portio?retryWrites=true&w=majority&appName=Cluster0"
 NEXTAUTH_URL="http://localhost:5000"
 NEXTAUTH_SECRET="yHPAn566eupHyWWvVJtXEj0yNkORn3pgPzayyWRK1xA="
 ADMIN_SIGNUP_CODE="ADMIN_SETUP_2024"
@@ -195,7 +195,7 @@ ADMIN_SIGNUP_CODE="ADMIN_SETUP_2024"
 
 ### Vercel Environment Variables
 ```env
-DATABASE_URL="mongodb+srv://ubaidttech_db_user:tra%40tech.281986@cluster0.lxszwnk.mongodb.net/order_db?retryWrites=true&w=majority&appName=Cluster0"
+DATABASE_URL="mongodb+srv://traubaid:ubaid281986@cluster0.cevggcp.mongodb.net/ubaitech_portio?retryWrites=true&w=majority&appName=Cluster0"
 NEXTAUTH_URL="https://your-app.vercel.app"
 NEXTAUTH_SECRET="yHPAn566eupHyWWvVJtXEj0yNkORn3pgPzayyWRK1xA="
 ADMIN_SIGNUP_CODE="ADMIN_SETUP_2024"
