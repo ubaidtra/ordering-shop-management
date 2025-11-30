@@ -7,3 +7,5 @@ console.log('\n✅ Generated NEXTAUTH_SECRET:');
 console.log(secret);
 console.log('\n📝 Add this to your .env file:');
 console.log(`NEXTAUTH_SECRET="${secret}"\n`);
+
+
