@@ -1,11 +1,19 @@
 /**
  * Script to create a single admin account
- * Usage: node scripts/create-admin-account.js
+ * 
+ * Usage (local database):
+ *   node scripts/create-admin-account.js
+ * 
+ * Usage (production database):
+ *   $env:DATABASE_URL="mongodb+srv://..." ; node scripts/create-admin-account.js
+ * 
+ * Or set DATABASE_URL in .env file
  */
 
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
+// Use DATABASE_URL from environment if set, otherwise uses default from .env
 const prisma = new PrismaClient();
 
 async function main() {
