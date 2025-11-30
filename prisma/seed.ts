@@ -4,28 +4,6 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create admin user
-  // Get admin credentials from environment variables or use defaults for development
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD || "changeme123";
-  
-  if (adminPassword === "changeme123") {
-    console.warn("⚠️  WARNING: Using default password. Set ADMIN_PASSWORD environment variable for production!");
-  }
-  
-  const hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      password: hashedAdminPassword,
-      name: "Admin User",
-      role: "ADMIN" as const,
-      isActive: true,
-    },
-  });
-
   // Create operator user
   const operatorPassword = await bcrypt.hash("operator123", 10);
   const operator = await prisma.user.upsert({
@@ -53,8 +31,6 @@ async function main() {
       isActive: true,
     },
   });
-
-  console.log("Seeded users:", { admin, operator, customer });
 
   // Create sample products (check if they exist first)
   const existingProducts = await prisma.product.findMany();
@@ -97,9 +73,7 @@ async function main() {
         },
       }),
     ]);
-    console.log("Seeded products:", products.length);
-  } else {
-    console.log("Products already exist, skipping product seed");
+    // Products seeded successfully
   }
 }
 

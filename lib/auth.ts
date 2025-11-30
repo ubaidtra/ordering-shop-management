@@ -45,8 +45,6 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          console.log("✅ Successful login:", email, "Role:", user.role);
-
           return {
             id: user.id,
             email: user.email,
